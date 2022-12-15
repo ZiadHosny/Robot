@@ -164,7 +164,7 @@ class Star {
 };
 class Hand {
 
-    constructor(x, y, vx, vy, dx, dy, color) {
+    constructor(x, y, vx, vy, dx, dy, color, left = false) {
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -172,16 +172,24 @@ class Hand {
         this.dx = dx;
         this.dy = dy;
         this.color = color;
+        this.left = left
     }
     draw() {
         canvas.beginPath();
         canvas.fillStyle = this.color;
         canvas.strokeStyle = '#F8F988';
         canvas.lineWidth = 10;
-        canvas.fillRect(this.x, this.y, this.dx, this.dy);
-        canvas.fillRect(this.x + this.dx, this.y, this.dy, this.dx);
-        canvas.strokeRect(this.x, this.y, this.dx, this.dy);
-        canvas.strokeRect(this.x + this.dx, this.y, this.dy, this.dx);
+        if (this.left) {
+            canvas.fillRect(this.x, this.y, this.dx, this.dy);
+            canvas.fillRect(this.x - this.dy, this.y - 70, this.dy, this.dx);
+            canvas.strokeRect(this.x, this.y, this.dx, this.dy);
+            canvas.strokeRect(this.x - this.dy, this.y - 70, this.dy, this.dx);
+        } else {
+            canvas.fillRect(this.x, this.y, this.dx, this.dy);
+            canvas.fillRect(this.x + this.dx, this.y, this.dy, this.dx);
+            canvas.strokeRect(this.x, this.y, this.dx, this.dy);
+            canvas.strokeRect(this.x + this.dx, this.y, this.dy, this.dx);
+        }
         canvas.fill();
         canvas.stroke();
     }
@@ -238,8 +246,8 @@ const ball2 = new Ball(WIDTH / 2, HEIGHT / 2, 2, 3, 10, 5, gradientBackground)
 const ball3 = new Ball(WIDTH / 2, HEIGHT / 2, 3, 2, 5, 2, gradientBackground)
 const ball4 = new Ball(WIDTH / 2, HEIGHT / 2, 4, 1, 40, 5, gradientBackground, 1)
 const star = new Star(WIDTH / 2, HEIGHT / 2, 1, 3, gradientBackground)
-const hand = new Hand(WIDTH / 2, HEIGHT / 2, 3, 3, 100, 30, gradientBackground)
-const hand2 = new Hand(WIDTH / 2, HEIGHT / 2, 1, 2, 100, 30, gradientBackground)
+const hand = new Hand(WIDTH / 2, HEIGHT / 2, 3, 3, 100, 30, gradientBackground,)
+const hand2 = new Hand(WIDTH / 2, HEIGHT / 2, 1, 2, 100, 30, gradientBackground, true)
 const triangle = new Triangle(WIDTH / 2, HEIGHT / 2, 2, 4, gradientBackground)
 
 const draw = () => {
